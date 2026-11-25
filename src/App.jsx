@@ -1,36 +1,80 @@
+
 import React, { useState } from 'react'
 import ProductList from './components/ProductList'
 import DarkModeToggle from './components/DarkModeToggle'
 import Cart from './components/Cart'
 
 const App = () => {
-  // TODO: Implement state for dark mode toggle
+  // Dark mode state
+  const [darkMode, setDarkMode] = useState(false)
 
-  // TODO: Implement state for cart management
+  // Shopping cart state
+  const [cart, setCart] = useState([])
 
-  // TODO: Implement state for category filtering
+  // Category filter state
+  const [category, setCategory] = useState('all')
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev)
+  }
+
+  // Add product to cart
+  const addToCart = (product) => {
+    setCart(prev => [...prev, product])
+  }
+
+  // Handle category filtering
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value)
+  }
 
   return (
-    <div>
+    <div className={darkMode ? 'dark-mode' : 'light-mode'}>
+
       <h1>🛒 Shopping App</h1>
+
       <p>
         Welcome! Your task is to implement filtering, cart management, and dark
         mode.
       </p>
 
-      {/* TODO: Render DarkModeToggle and implement dark mode functionality */}
+      {/* Dark Mode Toggle */}
+      <DarkModeToggle
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
 
-      {/* TODO: Implement category filter dropdown */}
-      <label>Filter by Category: </label>
-      <select>
+      <hr />
+
+      {/* Category Filter */}
+      <label htmlFor="category">
+        Filter by Category:
+      </label>
+
+      <select
+        id="category"
+        value={category}
+        onChange={handleCategoryChange}
+      >
         <option value="all">All</option>
         <option value="Fruits">Fruits</option>
         <option value="Dairy">Dairy</option>
       </select>
 
-      <ProductList />
+      <hr />
 
-      {/* TODO: Implement and render Cart component */}
+      {/* Product List */}
+      <ProductList
+        category={category}
+        addToCart={addToCart}
+      />
+
+      <hr />
+
+      {/* Shopping Cart */}
+      <Cart cart={cart} />
+
     </div>
   )
 }

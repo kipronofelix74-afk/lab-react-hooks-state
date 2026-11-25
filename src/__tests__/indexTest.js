@@ -4,6 +4,7 @@ import App from '../App'
 import { sampleProducts } from '../components/ProductList'
 import '@testing-library/jest-dom'
 
+
 test('toggles dark mode on button click', () => {
   render(<App />)
   const toggleBtn = screen.getByRole('button', { name: /toggle/i })
